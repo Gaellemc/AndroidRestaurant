@@ -77,7 +77,8 @@ class MenuActivity : AppCompatActivity() {
     private fun showDatas(category: com.example.androidrestaurant.Network.Category) {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = CustomAdapter(category.items) {
-            val intent = Intent( this, Activity::class.java)        //Commencer une activité
+            val intent = Intent( this, Activity::class.java) //Commencer une activité
+            intent.putExtra(Activity.PLATE_EXTRA, it)
             startActivity(intent)
         }
     }

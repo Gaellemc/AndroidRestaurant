@@ -15,7 +15,7 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
-class CustomAdapter(val items: List<Plate>, val clickListener: (Int) -> Unit): RecyclerView.Adapter<CustomAdapter.CellViewHolder>(), Callback {
+class CustomAdapter(val items: List<Plate>, val clickListener: (Plate) -> Unit): RecyclerView.Adapter<CustomAdapter.CellViewHolder>(), Callback {
     class CellViewHolder(binding: CellCustomBinding) : RecyclerView.ViewHolder(binding.root) {
         val textView: TextView = binding.textView
         val textView2: TextView = binding.textView2
@@ -39,7 +39,7 @@ class CustomAdapter(val items: List<Plate>, val clickListener: (Int) -> Unit): R
         Picasso.get().load(getThumbnail(plate)).into(holder.imageView, this)
         holder.root.setOnClickListener{
             Log.d("click", "click on ${position}")
-            clickListener(position)
+            clickListener(plate)
         }
     }
 
