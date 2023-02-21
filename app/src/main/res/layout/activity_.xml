@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".Activity">
 
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton2"
         android:layout_width="0dp"
@@ -40,16 +46,16 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="292dp"
         android:text="TextView"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/priceButton"
@@ -87,4 +93,5 @@
         app:layout_constraintBottom_toTopOf="@+id/priceButton"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/_03_2032960_minus_sign_in_a_square_comments_gif_png_removebg_preview" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

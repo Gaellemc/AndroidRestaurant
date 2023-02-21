@@ -1,12 +1,21 @@
 package com.example.androidrestaurant
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.androidrestaurant.Network.MenuResult
 import com.example.androidrestaurant.Network.Plate
 import com.example.androidrestaurant.databinding.ActivityBinding
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.GsonBuilder
 import org.json.JSONObject
+import java.io.File
 
 class Activity : AppCompatActivity() {
     companion object {
@@ -16,12 +25,15 @@ class Activity : AppCompatActivity() {
     lateinit var binding: ActivityBinding
     var plate: Plate? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         plate = intent.getSerializableExtra(PLATE_EXTRA) as? Plate
+
+        supportActionBar?.title = plate?.name
 
         val name = plate?.name
         binding.textView.text = name
@@ -44,7 +56,7 @@ class Activity : AppCompatActivity() {
             numberClick++
             binding.textView4.text = numberClick.toString()
             if (price != null) {
-                priceIncrement = priceIncrement.toInt() + price.toInt()
+                priceIncrement += price.toInt()
             }
             binding.priceButton.text = getString(R.string.priceButton) + priceIncrement.toString() + "€"
 
@@ -54,7 +66,7 @@ class Activity : AppCompatActivity() {
             if (numberClick >= 0) {
                 binding.textView4.text = numberClick.toString()
                 if (price != null) {
-                    priceIncrement = priceIncrement.toInt() - price.toInt()
+                    priceIncrement -= price.toInt()
                 }
                 binding.priceButton.text = getString(R.string.priceButton) + priceIncrement.toString() + "€"
 
@@ -62,15 +74,44 @@ class Activity : AppCompatActivity() {
         }
 
         binding.priceButton.setOnClickListener {
-            val panier = JSONObject()
+            var panier = JSONObject()
             panier.put("Nom", plate?.name)
             panier.put("Quantité", numberClick)
             panier.put("Total", priceIncrement)
 
+            val basket = GsonBuilder().setPrettyPrinting().create()
+            val basketString: String = basket.toJson(panier)
+            //File("basket.json").writeText(basketString)
+
+
+
             //Toast.makeText(this, "Panier modifié", Toast.LENGTH_LONG).show()
             Snackbar.make(it, "Panier modifié", Snackbar.LENGTH_SHORT).show()
+
+
         }
 
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_panier->{
+                Log.d("request", "clicked")
+                val intent = Intent( this, ShoppingBasket::class.java)
+                startActivity(intent)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
 }
 

@@ -2,9 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.androidrestaurant.MainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/action_panier"
+        android:icon="@drawable/kisspng_shopping_cart_computer_icons_white_cart_png_simple_5ab15d02e7c8b8_7488579515215731229494_removebg_preview"
+        android:title="@string/panier"
+        app:showAsAction="ifRoom" />
+
+
 </menu>

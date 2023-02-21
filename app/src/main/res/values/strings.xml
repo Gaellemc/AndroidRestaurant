@@ -19,6 +19,9 @@
 
     <string name="priceButton">Total " " </string>
 
+    <string name="panier"></string>
+
+    <string name="Commander">Buy</string>
 
 
 </resources>
